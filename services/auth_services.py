@@ -10,7 +10,7 @@ bcrypt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def register_user(user_data: UserRegister, db: Session):
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
-        raise ValueError("Email ya registrado")
+        raise ValueError("Email has already been registered")
     access_token = create_access_token(data={"sub": user_data.email})
     hashed_pw = bcrypt.hash(user_data.password)
     user = User(
